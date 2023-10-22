@@ -50,17 +50,19 @@ public class World {
         run(parsedArgs);
         System.out.println("System zakończył działanie");
         Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1.toString(position1.getX(), position1.getY()));
+        System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2.toString(position2.getX(),position2.getY()));
+        System.out.println(position2);
         Vector2d position3 = position1.add(position2);
-        System.out.println(position3.toString(position3.getX(), position3.getY()));
+        System.out.println(position3.toString());
+        Vector2d oppVector = position3.opposite();
+        System.out.println(oppVector.toString());
         MapDirection direct1 = MapDirection.SOUTH;
         System.out.println(direct1.next());
         System.out.println(direct1.previous());
         System.out.println(direct1);
         Vector2d v1 = direct1.toUnitVector();
-        System.out.println(v1.toString(v1.getX(), v1.getY()));
+        System.out.println(v1.toString());
 
 
     }

@@ -1,58 +1,58 @@
 package agh.ics.oop.model;
 
 public class Vector2d {
-   final public int x;
-   final public int y;
+   private final int x;
+   private final int y;
    public Vector2d(int x, int y){
         this.x = x;
         this.y = y;
    }
 
    public int getX(){
-       return this.x;
+       return x;
    }
 
     public int getY(){
-        return this.y;
+        return y;
     }
 
-    public String toString(int x, int y){
-       return "("+ x +","+ y + ")";
+    public  String toString(){
+       return "("+ this.x +","+ this.y + ")";
     }
 
     public boolean precedes(Vector2d other){
-       return (x >= other.x || y >= other.y);
+       return (this.x <= other.x && this.y <= other.y);
     }
 
     public boolean follows(Vector2d other){
-        return (x <= other.x || y <= other.y);
+        return (this.x >= other.x && this.y >= other.y);
     }
     public Vector2d add(Vector2d other){
-       return new Vector2d(x+other.x, y + other.y);
+       return new Vector2d(this.x+other.x, this.y + other.y);
     }
 
     public Vector2d subtract(Vector2d other){
-        return new Vector2d(x-other.x, y-other.y);
+        return new Vector2d(this.x-other.x, this.y-other.y);
     }
     public Vector2d upperRight(Vector2d other){
-        return new Vector2d(Math.max(x, other.x), Math.max(y, other.y));
+        return new Vector2d(Math.max(this.x, other.x), Math.max(this.y, other.y));
     }
 
     public Vector2d lowerLeft(Vector2d other){
-        return new Vector2d(Math.min(x, other.x), Math.min(y, other.y));
+        return new Vector2d(Math.min(this.x, other.x), Math.min(this.y, other.y));
     }
     public Vector2d opposite(){
-       return new Vector2d(-x, -y);
+       return new Vector2d(-this.x, -this.y);
     }
     public int hashCode(){
-        return Integer.hashCode(x)+7727*Integer.hashCode(y);
+        return Integer.hashCode(x)+9847*Integer.hashCode(y);
     }
 
     public boolean equals(Object other) {
         if (this == other) return true;
         if (!(other instanceof Vector2d)) return false;
         Vector2d that = (Vector2d) other;
-        return x == that.x && y == that.y;
+        return this.x == that.x && this.y == that.y;
     }
 
 }
