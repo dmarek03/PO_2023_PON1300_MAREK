@@ -1,6 +1,10 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
+import agh.ics.oop.model.Vector2d;
+
+
 
 public class World {
 //    public static void run(String[] args){
@@ -45,6 +49,21 @@ public class World {
         System.out.println("System wystartował");
         run(parsedArgs);
         System.out.println("System zakończył działanie");
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        Vector2d position3 = position1.add(position2);
+        System.out.println(position3.toString());
+        Vector2d oppVector = position3.opposite();
+        System.out.println(oppVector.toString());
+        MapDirection direct1 = MapDirection.SOUTH;
+        System.out.println(direct1.next());
+        System.out.println(direct1.previous());
+        System.out.println(direct1);
+        Vector2d v1 = direct1.toUnitVector();
+        System.out.println(v1.toString());
+
 
     }
 }
