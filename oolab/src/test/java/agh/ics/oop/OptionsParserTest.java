@@ -3,8 +3,8 @@ import static agh.ics.oop.OptionsParser.parseToEnum;
 import agh.ics.oop.model.MoveDirection;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +38,7 @@ public class OptionsParserTest {
         );
         List<MoveDirection> testMoves1 = parseToEnum(moves1);
         String [] moves2 = {"F ", "lr" , "a;a" , "123455" , "f ", " r"};
-        List<MoveDirection> parsedMoves2 = new ArrayList<>();
+        List<MoveDirection> parsedMoves2 = new LinkedList<>();
         List<MoveDirection> testMoves2 = parseToEnum(moves2);
         assertEquals(parsedMoves1.size(), testMoves1.size());
         assertEquals(parsedMoves2.size(), testMoves2.size());

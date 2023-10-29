@@ -68,8 +68,8 @@ public class World {
         Vector2d v1 = direct1.toUnitVector();
         System.out.println(v1.toString());
         System.out.println("========> lab3");
-        Animal animal = new Animal();
-        Animal animal1 = new Animal(position2);
+        Animal animal = new Animal(new Vector2d(3, 4));
+        Animal animal1 = new Animal();
         System.out.println(animal);
         System.out.println(animal1);
         animal.move(MoveDirection.FORWARD);
@@ -84,6 +84,11 @@ public class World {
         System.out.println(animal);
         animal.move(MoveDirection.FORWARD);
         System.out.println(animal);
+        System.out.println("========> Simulation");
+        List<MoveDirection> directions = OptionsParser.parseToEnum(args);
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+        Simulation simulation = new Simulation(directions, positions);
+        simulation.run();
 
 
     }
