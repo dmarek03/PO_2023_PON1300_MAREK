@@ -1,8 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.model.MoveDirection;
-
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OptionsParser {
@@ -49,19 +48,20 @@ public class OptionsParser {
 //
 //    }
 
-
+    // W implementacji directions wykorzystuję LinkedList, gdyż na tej liście będą wykonwyane tylko operacja dodawania
+    // elementów, zatem uzycie LinkedList powinno zwiększyć szybkość działania programu
     public static List<MoveDirection> parseToEnum(String[] args){
-        List<MoveDirection> Directions = new ArrayList<>();
+        List<MoveDirection> directions = new LinkedList<>();
         for(String a : args){
             switch (a) {
-                case "f" -> Directions.add(MoveDirection.FORWARD);
-                case "b" -> Directions.add(MoveDirection.BACKWARD);
-                case "r" -> Directions.add(MoveDirection.RIGHT);
-                case "l" -> Directions.add(MoveDirection.LEFT);
+                case "f" -> directions.add(MoveDirection.FORWARD);
+                case "b" -> directions.add(MoveDirection.BACKWARD);
+                case "r" -> directions.add(MoveDirection.RIGHT);
+                case "l" -> directions.add(MoveDirection.LEFT);
             }
 
         }
-        return Directions;
+        return directions;
 
     }
 
