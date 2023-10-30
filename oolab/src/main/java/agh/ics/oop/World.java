@@ -1,9 +1,11 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MapDirection;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
 
+import java.util.List;
 
 
 public class World {
@@ -33,7 +35,7 @@ public class World {
 //        }
 
 
-    public static void run(MoveDirection[] parsedArgs){
+    public static void run(List<MoveDirection> parsedArgs){
         for(MoveDirection pars : parsedArgs){
             String message = switch (pars){
                 case FORWARD -> "Zwierzak idzie do przodu";
@@ -45,10 +47,12 @@ public class World {
         }
     }
     public static void main(String[] args) {
-        MoveDirection[] parsedArgs = OptionsParser.parseToEnum(args);
+        System.out.println("========> lab1");
+        List<MoveDirection> parsedArgs = OptionsParser.parseToEnum(args);
         System.out.println("System wystartował");
         run(parsedArgs);
         System.out.println("System zakończył działanie");
+        System.out.println("========> lab2");
         Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
@@ -63,6 +67,28 @@ public class World {
         System.out.println(direct1);
         Vector2d v1 = direct1.toUnitVector();
         System.out.println(v1.toString());
+        System.out.println("========> lab3");
+        Animal animal = new Animal(new Vector2d(3, 4));
+        Animal animal1 = new Animal();
+        System.out.println(animal);
+        System.out.println(animal1);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
+        animal.move(MoveDirection.LEFT);
+        System.out.println(animal);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal);
+        System.out.println("========> Simulation");
+        List<MoveDirection> directions = OptionsParser.parseToEnum(args);
+        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
+        Simulation simulation = new Simulation(directions, positions);
+        simulation.run();
 
 
     }
