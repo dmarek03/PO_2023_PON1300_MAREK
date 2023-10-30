@@ -39,7 +39,7 @@ public class SimulationIntegrationTest {
 
     for(int idx =0 ;idx < expectedOrientations.size() ;idx++){
         assertEquals(expectedOrientations.get(idx),simulation.getAnimals().get(idx).getCurrentOrientation());
-        assertEquals(expectedPositions.get(idx),simulation.getAnimals().get(idx).getCurrentPosition());
+        assertTrue(simulation.getAnimals().get(idx).isAt(expectedPositions.get(idx)));
         assertTrue(simulation.getAnimals().get(idx).getCurrentPosition().precedes(UPPER_RIGHT_LIMIT));
         assertTrue(simulation.getAnimals().get(idx).getCurrentPosition().follows(LOWER_LEFT_LIMIT));
 
