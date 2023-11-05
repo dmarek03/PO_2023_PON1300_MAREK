@@ -4,24 +4,27 @@ import agh.ics.oop.MapVisualizer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RectangularMap implements WorldMap{
-    private int width;
-    private int height;
-    public final Vector2d lowerLeftLimit = new Vector2d(0,0);
-    public final Vector2d upperRightLimit = new Vector2d(width-1,height-1);
-    Map<Vector2d, Animal> animals = new HashMap<>() ;
+public class RectangularMap implements WorldMap, MoveValidator{
+    private final int width;
+    private final int height;
+    private final Vector2d lowerLeftLimit;
+    private final Vector2d upperRightLimit;
+    private final Map<Vector2d, Animal> animals = new HashMap<>() ;
 
     public RectangularMap(int width, int height) {
         this.width = width;
         this.height = height;
-    }
+        lowerLeftLimit = new Vector2d(0,0);
+        upperRightLimit = new Vector2d(width-1, height-1);
+   }
+
     @Override
     public boolean isOccupied(Vector2d position){
         return animals.containsKey(position);
     }
-
+    @Override
     public boolean canMoveTo(Vector2d position){
-        return !isOccupied(position) && lowerLeftLimit.precedes(position) && upperRightLimit.follows(position);
+        return !isOccupied(position) && (lowerLeftLimit.precedes(position) && upperRightLimit.follows(position));
     }
     @Override
     public Animal objectAt(Vector2d position){
@@ -41,12 +44,11 @@ public class RectangularMap implements WorldMap{
     }
     @Override
     public void move(Animal animal, MoveDirection direction){
-        Vector2d newPosition = animal.calculateNextPosition(direction);
-        if (canMoveTo(newPosition)){
-            animals.remove(animal.getCurrentPosition());
-            animal.move(direction);
-            animals.put(newPosition, animal);
-        }
+        animals.remove(animal.getCurrentPosition());
+        animal.move(direction,this);
+        animals.put(animal.getCurrentPosition(), animal);
+
+
 
     }
     @Override
@@ -54,4 +56,26 @@ public class RectangularMap implements WorldMap{
         MapVisualizer visualizer = new MapVisualizer(this);
         return visualizer.draw(lowerLeftLimit,upperRightLimit);
     }
+
+    public Map<Vector2d, Animal> getAnimals(){
+        return animals;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public Vector2d getLowerLeftLimit() {
+        return lowerLeftLimit;
+    }
+
+    public Vector2d getUpperRightLimit() {
+        return upperRightLimit;
+    }
+
+
 }

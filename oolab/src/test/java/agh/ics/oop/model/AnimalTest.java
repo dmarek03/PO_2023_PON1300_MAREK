@@ -1,5 +1,5 @@
 package agh.ics.oop.model;
-
+import agh.ics.oop.model.RectangularMap;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class AnimalTest {
@@ -30,14 +30,15 @@ public class AnimalTest {
         Vector2d pos1 = new Vector2d(5, 4);
         Vector2d pos2 = new Vector2d(-1, 5);
         Vector2d pos3 = new Vector2d(0, 0);
-        assertTrue(animal.canMoveTo(pos));
-        assertTrue(animal.canMoveTo(pos3));
-        assertFalse(animal.canMoveTo(pos1));
-        assertFalse(animal.canMoveTo(pos2));
+        assertTrue(animal.canMoveTo1(pos));
+        assertTrue(animal.canMoveTo1(pos3));
+        assertFalse(animal.canMoveTo1(pos1));
+        assertFalse(animal.canMoveTo1(pos2));
     }
 
     @Test
     public void isNextPositionCalculateCorrectly(){
+        RectangularMap map = new RectangularMap(4, 4);
         Animal animal = new Animal();
         Animal animal1 = new Animal(new Vector2d(3, 4));
         Animal animal2 = new Animal(new Vector2d(0, 0));
@@ -46,21 +47,15 @@ public class AnimalTest {
         MoveDirection direction3 = MoveDirection.RIGHT;
         MoveDirection direction4 = MoveDirection.LEFT;
         Vector2d expectedPos1 = new Vector2d(2, 3);
-        Vector2d expectedPos2 = new Vector2d(3, 4);
+        Vector2d expectedPos2 = new Vector2d(3, 3);
         Vector2d expectedPos3 = new Vector2d(0, 0);
         Vector2d expectedPos4 = new Vector2d(0, 1);
-        animal.move(direction1);
-        animal1.move(direction1);
-        animal2.move(direction2);
-        assertEquals(expectedPos1, animal.getCurrentPosition());
-        assertEquals(expectedPos2, animal1.getCurrentPosition());
-        assertEquals(expectedPos3, animal2.getCurrentPosition());
-        animal.move(direction3);
-        animal1.move(direction4);
-        animal2.move(direction1);
-        assertEquals(expectedPos1, animal.getCurrentPosition());
-        assertEquals(expectedPos2, animal1.getCurrentPosition());
-        assertEquals(expectedPos4, animal2.getCurrentPosition());
+        assertEquals(expectedPos1, animal.calculateNextPosition(direction1));
+        assertEquals(expectedPos2, animal1.calculateNextPosition(direction2));
+        assertEquals(expectedPos3, animal2.calculateNextPosition(direction3));
+        assertEquals(expectedPos4, animal2.calculateNextPosition(direction1));
+        assertEquals(expectedPos3, animal2.calculateNextPosition(direction4));
+        assertEquals(expectedPos4, animal2.calculateNextPosition(direction1));
 
     }
     @Test
