@@ -1,27 +1,30 @@
 package agh.ics.oop;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.*;
+
 
 public class Simulation {
 
     private final List<MoveDirection> directions;
-
+    private  final WorldMap map;
     private final List<Vector2d> positions;
     private final List<Animal> animals;
 
+
     // W implementacji listy animals wykorzystuję ArrayList, gdyż na tej liście częśćiej będą wykonywane operaje
     // odczytu i niż dodawania badź usuwania elementów, zatem wykorzystanie ArrayList będzię bardziej optymalne
-    public Simulation(List<MoveDirection> directions, List<Vector2d> positions){
+    public Simulation(List<MoveDirection> directions, List<Vector2d> positions, WorldMap map){
         this.directions = directions;
         this.positions = positions;
         List<Animal> animals = new ArrayList<>();
-        for (Vector2d move : positions) animals.add(new Animal(move));
+        for (Vector2d move : positions) {
+            Animal animal = new Animal(move);
+            animals.add(animal);
+            map.place(animal);
+        }
         this.animals = animals;
+        this.map = map;
 
 
     }
@@ -29,8 +32,9 @@ public class Simulation {
         int animalNumber = animals.size();
         for (int idx = 0; idx < directions.size();idx++){
             Animal animal = animals.get(idx % animalNumber);
-            animal.move(directions.get(idx));
-            System.out.printf("Zwierzę %d %s %n", idx % animalNumber, animal);
+            map.move(animal, directions.get(idx));
+            System.out.println(map);
+
         }
 
     }
@@ -44,4 +48,7 @@ public class Simulation {
         return Collections.unmodifiableList(animals);
     }
 
+    public WorldMap getMap() {
+        return map;
+    }
 }
