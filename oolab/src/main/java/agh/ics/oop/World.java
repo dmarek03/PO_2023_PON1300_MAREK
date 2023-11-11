@@ -1,10 +1,7 @@
 package agh.ics.oop;
 
-import agh.ics.oop.model.Animal;
-import agh.ics.oop.model.MapDirection;
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-import agh.ics.oop.model.RectangularMap;
+import agh.ics.oop.model.*;
+
 import java.util.List;
 
 
@@ -92,11 +89,29 @@ public class World {
 //        simulation.run();
         System.out.println("========> lab4");
         RectangularMap map1 = new RectangularMap(10, 10);
+        map1.place(new Animal(new Vector2d(7,8)));
+        System.out.println(map1);
         List<MoveDirection> directions = OptionsParser.parseToEnum(args);
         List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
         Simulation simulation = new Simulation(directions,positions, map1);
         System.out.println(map1);
         simulation.run();
+        System.out.println("========> lab5");
+        GrassField map2 = new GrassField(55);
+        List<Animal> animals =  List.of(new Animal(new Vector2d(1, 22)), new Animal());
+        for (Animal a : animals) System.out.println(map2.place(a));
+        System.out.println(map2.getAnimals());
+        System.out.println(map2.isOccupied(animals.get(1).getCurrentPosition()));
+        System.out.println(map2.objectAt(animals.get(1).getCurrentPosition()));
+        int i = 0;
+        System.out.println(map2);
+        for(MoveDirection d : directions){
+            map2.move(animals.get(i%2), d);
+            System.out.println(map2);
+            i += 1;
+        }
+        System.out.println(map2.getGrassClowns());
+        System.out.println(map2);
 
 
     }

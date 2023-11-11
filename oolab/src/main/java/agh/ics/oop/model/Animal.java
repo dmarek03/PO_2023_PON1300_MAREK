@@ -1,6 +1,6 @@
 package agh.ics.oop.model;
 
-public class Animal {
+public class Animal implements WorldElement {
     private MapDirection currentOrientation;
     private Vector2d currentPosition;
     public static final Vector2d UPPER_RIGHT_LIMIT = new Vector2d(4, 4);
@@ -25,15 +25,17 @@ public class Animal {
         };
 
     }
-
+    @Override
     public String toString(){
         return orientationToString();
     }
 
+    @Override
     public boolean isAt(Vector2d position){
         return currentPosition.equals(position);
     }
-    public boolean canMoveTo1(Vector2d position){
+
+    public boolean canMoveTo(Vector2d position){
         return LOWER_LEFT_LIMIT.precedes(position) && UPPER_RIGHT_LIMIT.follows(position);
     }
 
@@ -61,6 +63,7 @@ public class Animal {
     public MapDirection getCurrentOrientation() {
         return currentOrientation;
     }
+    @Override
     public Vector2d getCurrentPosition() {
         return currentPosition;
     }
