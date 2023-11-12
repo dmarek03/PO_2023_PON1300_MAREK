@@ -1,7 +1,5 @@
 package agh.ics.oop.model;
 
-import agh.ics.oop.MapVisualizer;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +37,10 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap, MoveVa
     @Override
     public Animal objectAt(Vector2d position){
         return animals.get(position);
+    }
+
+    public Map<Vector2d, Animal> getAnimals(){
+        return animals;
     }
 
 

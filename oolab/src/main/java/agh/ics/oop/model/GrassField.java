@@ -9,10 +9,13 @@ import java.util.Map;
 public class GrassField extends AbstractWorldMap implements WorldMap{
 
     private  final int grassNumber;
-    private final Map<Vector2d, WorldElement> grassClowns = new HashMap<>() ;
+    private Vector2d lowerLeftLimit;
+    private Vector2d upperRightLimit ;
+    private final Map<Vector2d,WorldElement> grassClowns = new HashMap<>() ;
+
 
     public GrassField(int n){
-        super((int)Math.sqrt(n*10), (int)Math.sqrt(n*10));
+        super((int)Math.sqrt(n*10)+1, (int)Math.sqrt(n*10)+1);
         this.grassNumber = n;
         placeGrass();
     }
@@ -22,7 +25,7 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
     }
 
     public void placeGrass(){
-        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(width, height, grassNumber);
+        RandomPositionGenerator randomPositionGenerator = new RandomPositionGenerator(width+1, height+1, grassNumber);
         for(Vector2d grassPosition : randomPositionGenerator) {
            grassClowns.put(grassPosition, new Grass(grassPosition));
         }
@@ -40,12 +43,12 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
         }
         return null;
     }
-    private int [] findMapLimits(Map<Vector2d, WorldElement>map){
+    private int [] findMapLimits(Map<Vector2d, WorldElement> map){
         int xMin = 0;
         int xMax = 0;
         int yMin = 0;
         int yMax= 0;
-        for(Map.Entry<Vector2d, WorldElement> entry: map.entrySet()){
+        for(Map.Entry<Vector2d,WorldElement> entry: map.entrySet()){
             int x =  entry.getKey().getX();
             int y = entry.getKey().getY();
 
@@ -72,11 +75,33 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
 
         }
         MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(new Vector2d(mapLimits[0], mapLimits[2]),new Vector2d(mapLimits[1], mapLimits[3]));
+        lowerLeftLimit = new Vector2d(mapLimits[0], mapLimits[2]);
+        upperRightLimit = new Vector2d(mapLimits[1], mapLimits[3]);
+        return visualizer.draw(lowerLeftLimit, upperRightLimit);
 
 
     }
+
+    @Override
+    public Map<Vector2d, WorldElement> getElement(){
+        Map<Vector2d, WorldElement> mapElements = super.getElement();
+        mapElements.putAll(grassClowns);
+        return mapElements;
+    }
     public Map<Vector2d, WorldElement> getGrassClowns(){return grassClowns;}
+
+    public Map<Vector2d, WorldElement> getAnimals(){
+        return animals;
+    }
+    @Override
+    public Vector2d getLowerLeftLimit() {
+        return lowerLeftLimit;
+    }
+    @Override
+    public Vector2d getUpperRightLimit() {
+        return upperRightLimit;
+    }
+
 
 
 }

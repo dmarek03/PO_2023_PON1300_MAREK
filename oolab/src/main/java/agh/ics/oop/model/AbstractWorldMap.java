@@ -8,6 +8,7 @@ import java.util.Map;
 public abstract class AbstractWorldMap implements WorldMap {
 
     protected final Map<Vector2d, WorldElement> animals = new HashMap<>();
+
     protected final int width;
     protected final int height;
     protected final Vector2d lowerLeftLimit;
@@ -57,6 +58,11 @@ public abstract class AbstractWorldMap implements WorldMap {
             return animals.get(position);
     }
 
+    public Map<Vector2d, WorldElement> getElement() {
+        return new HashMap<>(animals);
+    }
+
+
 
     public int getHeight() {
         return height;
@@ -74,9 +80,7 @@ public abstract class AbstractWorldMap implements WorldMap {
         return upperRightLimit;
     }
 
-    public Map<Vector2d, WorldElement> getAnimals(){
-        return animals;
-    }
+
 
 
 }
