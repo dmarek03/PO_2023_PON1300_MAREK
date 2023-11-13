@@ -20,5 +20,10 @@ public class Grass implements WorldElement {
         return this.position.equals(position);
     }
 
+    @Override
+    public MapDirection getCurrentOrientation(){
+        return null;
+    }
+
 
 }

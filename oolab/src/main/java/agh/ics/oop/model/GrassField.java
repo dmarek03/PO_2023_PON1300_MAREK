@@ -9,12 +9,14 @@ import java.util.Map;
 public class GrassField extends AbstractWorldMap implements WorldMap{
 
     private  final int grassNumber;
+
     private Vector2d lowerLeftLimit;
     private Vector2d upperRightLimit ;
     private final Map<Vector2d,WorldElement> grassClowns = new HashMap<>() ;
 
 
     public GrassField(int n){
+
         super((int)Math.sqrt(n*10)+1, (int)Math.sqrt(n*10)+1);
         this.grassNumber = n;
         placeGrass();
@@ -90,9 +92,6 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
     }
     public Map<Vector2d, WorldElement> getGrassClowns(){return grassClowns;}
 
-    public Map<Vector2d, WorldElement> getAnimals(){
-        return animals;
-    }
     @Override
     public Vector2d getLowerLeftLimit() {
         return lowerLeftLimit;

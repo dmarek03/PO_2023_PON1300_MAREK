@@ -138,11 +138,13 @@ public class RectangularMapTest  {
         );
 
         List<Animal> animals = new ArrayList<>();
+        System.out.println(map);
         for(Vector2d pos : positions) animals.add(new Animal(pos));
         for(Animal a:  animals) {map.place(a);}
         for(int i=0; i < Moves.size();i++){
             map.move(animals.get(i%4), Moves.get(i));
         }
+        System.out.println(map);
         for (int idx =0 ;idx < expectedOrientations.size() ;idx++){
             assertEquals(expectedOrientations.get(idx),map.getAnimals().get(expectedPositions.get(idx)).getCurrentOrientation());
             assertEquals(expectedPositions.get(idx), map.getAnimals().get(expectedPositions.get(idx)).getCurrentPosition());
