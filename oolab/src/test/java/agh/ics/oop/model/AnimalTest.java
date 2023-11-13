@@ -1,5 +1,4 @@
 package agh.ics.oop.model;
-import agh.ics.oop.model.RectangularMap;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 public class AnimalTest {
@@ -7,8 +6,8 @@ public class AnimalTest {
     public void isConvertingToStringCorrect(){
         Vector2d v1 = new Vector2d(1,3);
         Animal animal = new Animal(v1);
-        String expectedOutput  = "(Position: (1,3), Orientation: Północ)";
-        String invalidOutput  = "(Position:(1,3), Orientation: North)";
+        String expectedOutput  = "^";
+        String invalidOutput  = ">";
         assertEquals(expectedOutput, animal.toString());
         assertNotEquals(invalidOutput, animal.toString());
 
@@ -30,15 +29,14 @@ public class AnimalTest {
         Vector2d pos1 = new Vector2d(5, 4);
         Vector2d pos2 = new Vector2d(-1, 5);
         Vector2d pos3 = new Vector2d(0, 0);
-        assertTrue(animal.canMoveTo1(pos));
-        assertTrue(animal.canMoveTo1(pos3));
-        assertFalse(animal.canMoveTo1(pos1));
-        assertFalse(animal.canMoveTo1(pos2));
+        assertTrue(animal.canMoveTo(pos));
+        assertTrue(animal.canMoveTo(pos3));
+        assertFalse(animal.canMoveTo(pos1));
+        assertFalse(animal.canMoveTo(pos2));
     }
 
     @Test
     public void isNextPositionCalculateCorrectly(){
-        RectangularMap map = new RectangularMap(4, 4);
         Animal animal = new Animal();
         Animal animal1 = new Animal(new Vector2d(3, 4));
         Animal animal2 = new Animal(new Vector2d(0, 0));
