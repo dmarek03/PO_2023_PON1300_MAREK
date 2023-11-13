@@ -59,7 +59,7 @@ public class Animal implements WorldElement {
 
 
     }
-
+    @Override
     public MapDirection getCurrentOrientation() {
         return currentOrientation;
     }

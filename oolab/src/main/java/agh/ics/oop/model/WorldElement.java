@@ -3,7 +3,8 @@ package agh.ics.oop.model;
 public interface WorldElement {
 
     boolean isAt(Vector2d position);
-    public Vector2d getCurrentPosition();
+    Vector2d getCurrentPosition();
+    MapDirection getCurrentOrientation();
     String toString();
 
 

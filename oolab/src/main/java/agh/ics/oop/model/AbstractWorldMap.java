@@ -24,6 +24,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
 
+
     public boolean isOccupied(Vector2d position){
         return animals.containsKey(position);
     }
@@ -48,7 +49,7 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public  String toString(){
         MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(new Vector2d(0,0), new Vector2d(width-1, height-1));
+        return visualizer.draw(lowerLeftLimit, upperRightLimit);
 
     }
 
@@ -78,6 +79,10 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public Vector2d getUpperRightLimit() {
         return upperRightLimit;
+    }
+
+    public Map<Vector2d, WorldElement> getAnimals(){
+        return animals;
     }
 
 
