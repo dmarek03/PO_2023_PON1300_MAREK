@@ -12,8 +12,8 @@ public class SimulationIntegrationTest {
             new Vector2d(4, 4),
             new Vector2d(5, 5),
             new Vector2d(5, 4),
-            new Vector2d(4, 5),
             new Vector2d(4, 5)
+
     );
     String [] moves = {"f", "r", "r","l","f","r","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","b"};
     List<MoveDirection> expectedMoves = List.of(
