@@ -9,7 +9,7 @@ import java.util.List;
 public class GrassFiledTest {
 
     @Test
-    public void isPositionOccupiedByAnimal(){
+    public void isPositionOccupiedByAnimal() throws PositionAlreadyOccupiedException {
         GrassField grassMap = new GrassField(10);
         List<Animal> animals = List.of(
                 new Animal(),
@@ -21,7 +21,10 @@ public class GrassFiledTest {
 
         );
         List<Vector2d> freePositions = List.of(new Vector2d(0,0), new Vector2d(1,1), new Vector2d(-8,4));
-        for (Animal a : animals) grassMap.place(a);
+        for (Animal a : animals) {
+            grassMap.place(a);
+
+        }
         for(Animal a: animals){
         assertTrue(grassMap.isOccupied(a.getCurrentPosition()));
         }
@@ -31,7 +34,7 @@ public class GrassFiledTest {
 
     }
     @Test
-    public void isObjectAtPosition(){
+    public void isObjectAtPosition() throws PositionAlreadyOccupiedException {
         GrassField grassMap = new GrassField(100);
         List<Vector2d> positions = List.of(
                 new Vector2d(2,2),
@@ -51,17 +54,18 @@ public class GrassFiledTest {
 
         );
         List<Vector2d> freePositions = List.of(
-                new Vector2d(3,0),
-                new Vector2d(1,1),
-                new Vector2d(-8,4),
-                new Vector2d(10,0),
-                new Vector2d(-99,1),
-                new Vector2d(-8,40)
+                new Vector2d(3,28),
+                new Vector2d(-1,-4),
+                new Vector2d(-8,30),
+                new Vector2d(60,23),
+                new Vector2d(34,10),
+                new Vector2d(-1,40)
         );
         for (Animal a : animals) {
-            grassMap.place(a);
-        }
+                grassMap.place(a);
 
+        }
+        System.out.println(grassMap);
         for (int idx = 0 ;idx<positions.size();idx++) {
             assertEquals(animals.get(idx), grassMap.objectAt(positions.get(idx)));
             assertNull(grassMap.objectAt(freePositions.get(idx)));
@@ -70,7 +74,7 @@ public class GrassFiledTest {
 
     }
     @Test
-    public void areAnimalsPlacedCorrectly(){
+    public void areAnimalsPlacedCorrectly() throws PositionAlreadyOccupiedException {
         GrassField grassMap = new GrassField(100);
         List<Vector2d> positions = List.of(
                 new Vector2d(1, 9),
@@ -99,14 +103,20 @@ public class GrassFiledTest {
 
         for(Animal a: animals) {
             grassMap.place(a);
+
         }
 
         for(int idx = 0;idx<positions.size();idx++){
             assertEquals(animals.get(idx), grassMap.getAnimals().get(positions.get(idx)));
 
         }
-        for(Animal a: animalsWhitOnlyOneOtherPosition) {
-            grassMap.place(a);
+        for (Animal animal : animalsWhitOnlyOneOtherPosition) {
+            try {
+                grassMap.place(animal);
+
+            } catch (PositionAlreadyOccupiedException e) {
+                assertEquals("Position " + animal.getCurrentPosition() + " is already occupied.", e.getMessage());
+            }
         }
         assertEquals(animals.size()+1, grassMap.getAnimals().size());
 
@@ -120,11 +130,14 @@ public class GrassFiledTest {
     }
 
     @Test
-    public void shouldAnimalsMoveCorrectly(){
+    public void shouldAnimalsMoveCorrectly() throws PositionAlreadyOccupiedException {
 
         GrassField map2 = new GrassField(0);
         List<Animal> animals1 =  List.of(new Animal(new Vector2d(0, 0)),new Animal(), new Animal(new Vector2d(1,1)));
-        for (Animal a : animals1) map2.place(a);
+        for (Animal a : animals1) {
+            map2.place(a);
+
+        }
         System.out.println(map2.getAnimals());
         List<Vector2d> finalPositions = List.of(new Vector2d(-4,0), new Vector2d(2, 7), new Vector2d(1, -2));
         List<Vector2d> mapLimits= List.of(new Vector2d(-4, -2), new Vector2d(2,7));
@@ -210,6 +223,7 @@ public class GrassFiledTest {
         }
         for(Animal a : animals) {
             grassMap.place(a);
+
         }
         System.out.println(grassMap);
         for(int i=0; i < Moves.size();i++){

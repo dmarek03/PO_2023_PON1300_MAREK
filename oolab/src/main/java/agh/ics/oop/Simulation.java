@@ -20,7 +20,14 @@ public class Simulation {
         List<Animal> animals = new ArrayList<>();
         for (Vector2d move : positions) {
             Animal animal = new Animal(move);
-            if (map.place(animal)) animals.add(animal);
+            //if (map.place(animal)) animals.add(animal);
+            try {
+                map.place(animal);
+                animals.add(animal);
+            } catch (PositionAlreadyOccupiedException e) {
+                System.err.println(e.getMessage());
+            }
+
         }
         this.animals = animals;
         this.map = map;
@@ -32,7 +39,7 @@ public class Simulation {
         for (int idx = 0; idx < directions.size();idx++){
             Animal animal = animals.get(idx % animalNumber);
             map.move(animal, directions.get(idx));
-            System.out.println(map);
+            //System.out.println(map);
 
         }
 

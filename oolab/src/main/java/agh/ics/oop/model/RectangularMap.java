@@ -1,8 +1,5 @@
 package agh.ics.oop.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class RectangularMap extends AbstractWorldMap implements WorldMap, MoveValidator {
 
     public RectangularMap(int width, int height) {
@@ -14,7 +11,8 @@ public class RectangularMap extends AbstractWorldMap implements WorldMap, MoveVa
         return super.canMoveTo(position) && (lowerLeftLimit.precedes(position) && upperRightLimit.follows(position));
     }
 
-
-
-
+    @Override
+    public Boundary getCurrentBounds() {
+        return new Boundary(getLowerLeftLimit(), getUpperRightLimit());
+    }
 }
