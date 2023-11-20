@@ -1,7 +1,4 @@
 package agh.ics.oop.model;
-
-import agh.ics.oop.MapVisualizer;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,8 +61,9 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
 
     }
 
+
     @Override
-    public String toString(){
+    public Boundary getCurrentBounds(){
         int  [] grassMapLimits = findMapLimits(this.grassClowns);
         int  [] animalMapLimits = findMapLimits(this.animals);
         int [] mapLimits = {0,0,0,0};
@@ -76,12 +74,11 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
             }
 
         }
-        MapVisualizer visualizer = new MapVisualizer(this);
         lowerLeftLimit = new Vector2d(mapLimits[0], mapLimits[2]);
         upperRightLimit = new Vector2d(mapLimits[1], mapLimits[3]);
-        return visualizer.draw(lowerLeftLimit, upperRightLimit);
 
 
+        return new Boundary(getLowerLeftLimit(), getUpperRightLimit());
     }
 
     @Override

@@ -28,22 +28,33 @@ public class OptionsParserTest {
 
     @Test
     public void areMovesCorrectlyParsedToEnum(){
-        String [] moves1 = {"f", "l", "r", "g", "t", "f", " i" , "L", "G", "r", "ala", "123"};
+        String [] moves1 = {"f", "l", "r", "f", "r"};
+        String [] moves2 = {"f", "l", "r", "g", "t", "f", " i" , "L", "G", "r", "ala", "123"};
         List<MoveDirection> parsedMoves1 = Arrays.asList(
                 MoveDirection.FORWARD,
                 MoveDirection.LEFT,
                 MoveDirection.RIGHT,
                 MoveDirection.FORWARD,
                 MoveDirection.RIGHT
+
         );
         List<MoveDirection> testMoves1 = parseToEnum(moves1);
-        String [] moves2 = {"F ", "lr" , "a;a" , "123455" , "f ", " r"};
-        List<MoveDirection> parsedMoves2 = new LinkedList<>();
-        List<MoveDirection> testMoves2 = parseToEnum(moves2);
+        try{
+
+            assertThrows(IllegalArgumentException.class, () -> parseToEnum(moves2));
+        } catch (IllegalArgumentException e) {
+            fail(e + " is not legal move specification");
+        }
+        String [] moves3 = {"F ", "lr" , "a;a" , "123455" , "f ", " r"};
+
+        try{
+
+            assertThrows(IllegalArgumentException.class, () -> parseToEnum(moves3));
+        } catch (IllegalArgumentException e) {
+            fail(e + " is not legal move specification");
+        }
         assertEquals(parsedMoves1.size(), testMoves1.size());
-        assertEquals(parsedMoves2.size(), testMoves2.size());
         assertIterableEquals(parsedMoves1, testMoves1);
-        assertIterableEquals(parsedMoves2, testMoves2);
 
     }
 }

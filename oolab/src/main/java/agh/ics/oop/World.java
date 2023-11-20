@@ -87,30 +87,46 @@ public class World {
 //        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
 //        Simulation simulation = new Simulation(directions,positions, map);
 //        simulation.run();
-//        System.out.println("========> lab4");
-//        RectangularMap map1 = new RectangularMap(10, 10);
-//        map1.place(new Animal(new Vector2d(7,8)));
-//        System.out.println(map1);
-        List<MoveDirection> directions = OptionsParser.parseToEnum(args);
-//        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(3,4));
-//        Simulation simulation = new Simulation(directions,positions, map1);
-//        System.out.println(map1);
-//        simulation.run();
-        System.out.println("========> lab5");
-        GrassField map2 = new GrassField(10);
-        List<Animal> animals =  List.of(new Animal(new Vector2d(0, 0)),new Animal(), new Animal(new Vector2d(1,1)));
-        for (Animal a : animals) System.out.println(map2.place(a));
-        System.out.println(map2.getAnimals());
-        int i = 0;
-        System.out.println(map2);
-        for(MoveDirection d : directions){
-            map2.move(animals.get(i %3), d);
-            System.out.println(map2);
-            i += 1;
+        try {
+            System.out.println("========> lab4");
+            RectangularMap map1 = new RectangularMap(10, 10);
+            MapChangeListener obs = new ConsoleMapDisplay();
+            map1.addObserver(obs);
+
+            try {
+                map1.place(new Animal(new Vector2d(7, 8)));
+            } catch (PositionAlreadyOccupiedException e) {
+                System.err.println(e.getMessage());
+            }
+
+            List<MoveDirection> directions = OptionsParser.parseToEnum(args);
+            List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
+            Simulation simulation = new Simulation(directions, positions, map1);
+            simulation.run();
+            System.out.println("========> lab5");
+            GrassField map2 = new GrassField(10);
+            MapChangeListener observer = new ConsoleMapDisplay();
+            map2.addObserver(observer);
+            List<Animal> animals = List.of(new Animal(new Vector2d(0, 0)), new Animal(), new Animal(new Vector2d(1, 1)), new Animal());
+            for (Animal a : animals) {
+                try {
+                    map2.place(a);
+                } catch (PositionAlreadyOccupiedException e) {
+                    System.err.println(e.getMessage());
+                }
+
+            }
+            System.out.println(map2.getAnimals());
+            int i = 0;
+            for (MoveDirection d : directions) {
+                map2.move(animals.get(i % 3), d);
+                i += 1;
+            }
+            System.out.println(map2.getGrassClowns());
+            System.out.println(map2.getElement());
+        }catch (IllegalArgumentException e){
+            System.err.println(e.getMessage());
         }
-        System.out.println(map2.getGrassClowns());
-        System.out.println(map2);
-        System.out.println(map2.getElement());
 
 
     }

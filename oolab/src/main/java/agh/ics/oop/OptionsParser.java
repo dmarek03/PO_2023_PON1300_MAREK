@@ -50,7 +50,7 @@ public class OptionsParser {
 
     // W implementacji directions wykorzystuję LinkedList, gdyż na tej liście będą wykonwyane tylko operacja dodawania
     // elementów, zatem uzycie LinkedList powinno zwiększyć szybkość działania programu
-    public static List<MoveDirection> parseToEnum(String[] args){
+    public static List<MoveDirection> parseToEnum(String[] args) throws IllegalArgumentException{
         List<MoveDirection> directions = new LinkedList<>();
         for(String a : args){
             switch (a) {
@@ -58,6 +58,7 @@ public class OptionsParser {
                 case "b" -> directions.add(MoveDirection.BACKWARD);
                 case "r" -> directions.add(MoveDirection.RIGHT);
                 case "l" -> directions.add(MoveDirection.LEFT);
+                default -> throw new IllegalArgumentException(a + " is not legal move specification");
             }
 
         }
