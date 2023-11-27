@@ -2,7 +2,9 @@ package agh.ics.oop;
 
 import agh.ics.oop.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class World {
@@ -32,18 +34,19 @@ public class World {
 //        }
 
 
-    public static void run(List<MoveDirection> parsedArgs){
-        for(MoveDirection pars : parsedArgs){
-            String message = switch (pars){
-                case FORWARD -> "Zwierzak idzie do przodu";
-                case BACKWARD -> "Zwierzak idzie do tyłu";
-                case RIGHT -> "Zwierzak skręca w prawo";
-                case LEFT -> "Zwierzak skręca w lewo";
-            };
-            System.out.println(message);
-        }
-    }
+//    public static void run(List<MoveDirection> parsedArgs){
+//        for(MoveDirection pars : parsedArgs){
+//            String message = switch (pars){
+//                case FORWARD -> "Zwierzak idzie do przodu";
+//                case BACKWARD -> "Zwierzak idzie do tyłu";
+//                case RIGHT -> "Zwierzak skręca w prawo";
+//                case LEFT -> "Zwierzak skręca w lewo";
+//            };
+//            System.out.println(message);
+//        }
+//    }
     public static void main(String[] args) {
+          System.out.println("System wystartował");
 //        System.out.println("========> lab1");
 //        List<MoveDirection> parsedArgs = OptionsParser.parseToEnum(args);
 //        System.out.println("System wystartował");
@@ -88,42 +91,75 @@ public class World {
 //        Simulation simulation = new Simulation(directions,positions, map);
 //        simulation.run();
         try {
-            System.out.println("========> lab4");
-            RectangularMap map1 = new RectangularMap(10, 10);
-            MapChangeListener obs = new ConsoleMapDisplay();
-            map1.addObserver(obs);
-
-            try {
-                map1.place(new Animal(new Vector2d(7, 8)));
-            } catch (PositionAlreadyOccupiedException e) {
-                System.err.println(e.getMessage());
-            }
+//            System.out.println("========> lab4");
+//            RectangularMap map1 = new RectangularMap(10, 10, UUID.randomUUID());
+//            MapChangeListener obs = new ConsoleMapDisplay();
+//            map1.addObserver(obs);
+//
+//            try {
+//                map1.place(new Animal(new Vector2d(7, 8)));
+//            } catch (PositionAlreadyOccupiedException e) {
+//                System.err.println(e.getMessage());
+//            }
 
             List<MoveDirection> directions = OptionsParser.parseToEnum(args);
-            List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
-            Simulation simulation = new Simulation(directions, positions, map1);
-            simulation.run();
-            System.out.println("========> lab5");
-            GrassField map2 = new GrassField(10);
-            MapChangeListener observer = new ConsoleMapDisplay();
-            map2.addObserver(observer);
-            List<Animal> animals = List.of(new Animal(new Vector2d(0, 0)), new Animal(), new Animal(new Vector2d(1, 1)), new Animal());
-            for (Animal a : animals) {
-                try {
-                    map2.place(a);
-                } catch (PositionAlreadyOccupiedException e) {
-                    System.err.println(e.getMessage());
-                }
+//            List<Vector2d> positions = List.of(new Vector2d(2, 2), new Vector2d(3, 4));
+//            Simulation simulation = new Simulation(directions, positions, map1);
+            //simulation.run();
+//            System.out.println("========> lab5");
+//            GrassField map2 = new GrassField(10, UUID.randomUUID());
+//            MapChangeListener observer = new ConsoleMapDisplay();
+//            map2.addObserver(observer);
+//            List<Animal> animals = List.of(new Animal(new Vector2d(0, 0)), new Animal(new Vector2d(1, 1)), new Animal());
+//            for (Animal a : animals) {
+//                try {
+//                    map2.place(a);
+//                } catch (PositionAlreadyOccupiedException e) {
+//                    System.err.println(e.getMessage());
+//                }
+//
+//            }
+//            System.out.println(map2.getAnimals());
+//            int i = 0;
+//            for (MoveDirection d : directions) {
+//                map2.move(animals.get(i % 3), d);
+//                i += 1;
+//            }
+//            System.out.println(map2.getGrassClowns());
+//            System.out.println(map2.getElement());
 
+            System.out.println("========> lab7");
+            RectangularMap map3 = new RectangularMap(10, 10, UUID.randomUUID());
+            List<Vector2d> positions3 = List.of(new Vector2d(2, 2), new Vector2d(3, 4), new Vector2d(7, 8));
+            List<Vector2d> positions4 = List.of(new Vector2d(1, 0), new Vector2d(-3, 4), new Vector2d(5,5));
+            MapChangeListener observer3 = new ConsoleMapDisplay();
+            map3.addObserver(observer3);
+            GrassField map4 = new GrassField(10,UUID.randomUUID() );
+            map4.addObserver(observer3);
+            List<Simulation> simulations = List.of(new Simulation(directions, positions3, map3), new Simulation(directions, positions4, map4));
+            SimulationEngine simulationEngine  = new SimulationEngine(simulations);
+            System.out.println("-------------Synchronous simulation-------------");
+            simulationEngine.runSyn();
+            System.out.println("-------------Asynchronous simulation-------------");
+            simulationEngine.runAsyncInThreadPool();
+            System.out.println("-------------Race_Conditions-------------");
+            RandomSimulationGenerator simulationGenerator = new RandomSimulationGenerator(
+                    500,
+                    10,
+                    10,
+                    25, 25,
+                    10
+                    );
+
+            List<Simulation> manySimulations = simulationGenerator.getSimulations();
+            for(Simulation s: manySimulations){
+                System.out.println(s.getPositions() + "" + s.getDirections());
             }
-            System.out.println(map2.getAnimals());
-            int i = 0;
-            for (MoveDirection d : directions) {
-                map2.move(animals.get(i % 3), d);
-                i += 1;
-            }
-            System.out.println(map2.getGrassClowns());
-            System.out.println(map2.getElement());
+            SimulationEngine simulationEngine1 = new SimulationEngine(manySimulations);
+            simulationEngine1.runAsyncInThreadPool();
+            System.out.println("System zakończył działanie");
+
+
         }catch (IllegalArgumentException e){
             System.err.println(e.getMessage());
         }

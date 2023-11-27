@@ -1,6 +1,7 @@
 package agh.ics.oop.model;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class GrassField extends AbstractWorldMap implements WorldMap{
@@ -12,9 +13,9 @@ public class GrassField extends AbstractWorldMap implements WorldMap{
     private final Map<Vector2d,WorldElement> grassClowns = new HashMap<>() ;
 
 
-    public GrassField(int n){
+    public GrassField(int n, UUID id){
 
-        super((int)Math.sqrt(n*10)+1, (int)Math.sqrt(n*10)+1);
+        super((int)Math.sqrt(n*10)+1, (int)Math.sqrt(n*10)+1, id);
         this.grassNumber = n;
         placeGrass();
     }

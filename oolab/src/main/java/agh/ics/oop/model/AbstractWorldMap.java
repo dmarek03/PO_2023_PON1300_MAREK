@@ -2,10 +2,7 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.MapVisualizer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractWorldMap implements WorldMap {
 
@@ -16,12 +13,14 @@ public abstract class AbstractWorldMap implements WorldMap {
     protected final int height;
     protected final Vector2d lowerLeftLimit;
     protected final Vector2d upperRightLimit ;
+    protected final UUID id;
 
 
 
-    protected AbstractWorldMap(int width, int height) {
+    protected AbstractWorldMap(int width, int height, UUID id) {
         this.width = width;
         this.height = height;
+        this.id = id;
         lowerLeftLimit = new Vector2d(0,0);
         upperRightLimit = new Vector2d(width-1, height-1);
     }
@@ -34,13 +33,13 @@ public abstract class AbstractWorldMap implements WorldMap {
         observers.remove(observer);
     }
 
-    public void notifyObservers(String message){
+    public synchronized void notifyObservers(String message){
         for(MapChangeListener o : observers){
             o.mapChanged(this, message);
         }
     }
 
-    public void mapChanged(String message) {
+    public synchronized void mapChanged(String message) {
         notifyObservers(message);
     }
 
@@ -73,7 +72,7 @@ public abstract class AbstractWorldMap implements WorldMap {
     }
 
 
-    public  String toString(){
+    public String toString(){
         MapVisualizer visualizer = new MapVisualizer(this);
         return visualizer.draw(getCurrentBounds().lowerLeftLimit(), getCurrentBounds().upperRightLimit());
 
@@ -91,6 +90,10 @@ public abstract class AbstractWorldMap implements WorldMap {
 
     public abstract Boundary getCurrentBounds();
 
+    @Override
+    public UUID getId() {
+        return id;
+    }
 
 
     public int getHeight() {
