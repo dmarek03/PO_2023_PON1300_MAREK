@@ -43,5 +43,9 @@ public class RandomPositionGenerator implements Iterable<Vector2d> {
     public Iterator<Vector2d> iterator() {
         return positions.iterator();
     }
+
+    public  List<Vector2d> getPositions(){
+        return positions;
+    }
 }
 
