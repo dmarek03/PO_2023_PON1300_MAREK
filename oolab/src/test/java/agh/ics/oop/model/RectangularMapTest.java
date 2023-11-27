@@ -1,17 +1,15 @@
 package agh.ics.oop.model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 
 public class RectangularMapTest  {
 
     @Test
     public void isPositionOccupiedByAnimal() throws PositionAlreadyOccupiedException {
-        RectangularMap map = new RectangularMap(5, 5);
+        RectangularMap map = new RectangularMap(5, 5, UUID.fromString("1"));
         List<Animal> animals = List.of(new Animal(), new Animal(new Vector2d(3, 4)), new Animal(new Vector2d(4, 4)));
         for(Animal a: animals) {
                 map.place(a);
@@ -24,7 +22,7 @@ public class RectangularMapTest  {
 
     @Test
     public void isObjectAtPosition() throws PositionAlreadyOccupiedException{
-        RectangularMap map = new RectangularMap(10, 5);
+        RectangularMap map = new RectangularMap(10, 5, UUID.fromString("2"));
         List<Animal> animals = List.of(new Animal(), new Animal(new Vector2d(9, 4)), new Animal(new Vector2d(7, 4)));
         List<Vector2d> expectedPositions = List.of(new Vector2d(2, 2), new Vector2d(9, 4));
         List<Animal> invalidAnimals = List.of(new Animal(
@@ -61,7 +59,7 @@ public class RectangularMapTest  {
 
     @Test
     public void areAnimalsPlacedCorrectly(){
-        RectangularMap map = new RectangularMap(10, 10);
+        RectangularMap map = new RectangularMap(10, 10, UUID.fromString("3"));
         List<Vector2d> positions = List.of(
                 new Vector2d(1, 9),
                 new Vector2d(2, 2),
@@ -121,7 +119,7 @@ public class RectangularMapTest  {
 
     @Test
     public void shouldAnimalsMoveCorrectly() throws PositionAlreadyOccupiedException{
-        RectangularMap map = new RectangularMap(12, 12);
+        RectangularMap map = new RectangularMap(12, 12, UUID.fromString("4"));
         List<Vector2d> positions = List.of(
                 new Vector2d(4, 4),
                 new Vector2d(5, 5),
