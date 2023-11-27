@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static agh.ics.oop.OptionsParser.parseToEnum;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
+import java.util.UUID;
 
 public class SimulationIntegrationTest {
     @Test
@@ -46,7 +47,7 @@ public class SimulationIntegrationTest {
     List<MoveDirection> parsedMoves = parseToEnum(moves);
     assertIterableEquals(expectedMoves, parsedMoves);
 
-    RectangularMap map = new RectangularMap(12, 12);
+    RectangularMap map = new RectangularMap(12, 12, UUID.fromString("1"));
     Simulation simulation = new Simulation(parsedMoves, positions, map);
     System.out.println(simulation.getAnimals());
     simulation.run();

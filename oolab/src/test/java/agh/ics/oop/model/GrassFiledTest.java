@@ -5,12 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GrassFiledTest {
 
     @Test
     public void isPositionOccupiedByAnimal() throws PositionAlreadyOccupiedException {
-        GrassField grassMap = new GrassField(10);
+        GrassField grassMap = new GrassField(10, UUID.fromString("1"));
         List<Animal> animals = List.of(
                 new Animal(),
                 new Animal(new Vector2d(9, 4)),
@@ -35,7 +36,7 @@ public class GrassFiledTest {
     }
     @Test
     public void isObjectAtPosition() throws PositionAlreadyOccupiedException {
-        GrassField grassMap = new GrassField(100);
+        GrassField grassMap = new GrassField(100,UUID.fromString("1"));
         List<Vector2d> positions = List.of(
                 new Vector2d(2,2),
                 new Vector2d(0, 0),
@@ -75,7 +76,7 @@ public class GrassFiledTest {
     }
     @Test
     public void areAnimalsPlacedCorrectly() throws PositionAlreadyOccupiedException {
-        GrassField grassMap = new GrassField(100);
+        GrassField grassMap = new GrassField(100, UUID.fromString("1"));
         List<Vector2d> positions = List.of(
                 new Vector2d(1, 9),
                 new Vector2d(2, 2),
@@ -132,7 +133,7 @@ public class GrassFiledTest {
     @Test
     public void shouldAnimalsMoveCorrectly() throws PositionAlreadyOccupiedException {
 
-        GrassField map2 = new GrassField(0);
+        GrassField map2 = new GrassField(0, UUID.fromString("2"));
         List<Animal> animals1 =  List.of(new Animal(new Vector2d(0, 0)),new Animal(), new Animal(new Vector2d(1,1)));
         for (Animal a : animals1) {
             map2.place(a);
@@ -170,7 +171,7 @@ public class GrassFiledTest {
             assertEquals(fp, map2.getAnimals().get(finalPositions.get(finalPositions.indexOf(fp))).getCurrentPosition());
         }
 
-        GrassField grassMap = new GrassField(24);
+        GrassField grassMap = new GrassField(24,UUID.fromString("2"));
         List<Vector2d> positions = List.of(
                 new Vector2d(4, 4),
                 new Vector2d(5, 5),

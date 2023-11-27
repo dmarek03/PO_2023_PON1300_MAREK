@@ -4,7 +4,7 @@ import java.util.*;
 import agh.ics.oop.model.*;
 
 
-public class Simulation {
+public class Simulation implements Runnable{
 
     private final List<MoveDirection> directions;
     private  final WorldMap map;
@@ -20,7 +20,6 @@ public class Simulation {
         List<Animal> animals = new ArrayList<>();
         for (Vector2d move : positions) {
             Animal animal = new Animal(move);
-            //if (map.place(animal)) animals.add(animal);
             try {
                 map.place(animal);
                 animals.add(animal);
@@ -34,12 +33,12 @@ public class Simulation {
 
 
     }
+    @Override
     public void run() {
         int animalNumber = animals.size();
         for (int idx = 0; idx < directions.size();idx++){
             Animal animal = animals.get(idx % animalNumber);
             map.move(animal, directions.get(idx));
-            //System.out.println(map);
 
         }
 
