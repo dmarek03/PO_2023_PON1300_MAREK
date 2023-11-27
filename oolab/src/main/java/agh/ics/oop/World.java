@@ -141,19 +141,19 @@ public class World {
             System.out.println("-------------Synchronous simulation-------------");
             simulationEngine.runSyn();
             System.out.println("-------------Asynchronous simulation-------------");
-            simulationEngine.runAsyncInThreadPool();
+           simulationEngine.runAsyncInThreadPool();
             System.out.println("-------------Race_Conditions-------------");
             RandomSimulationGenerator simulationGenerator = new RandomSimulationGenerator(
                     500,
                     10,
                     10,
-                    25, 25,
+                    20, 20,
                     10
                     );
 
             List<Simulation> manySimulations = simulationGenerator.getSimulations();
             for(Simulation s: manySimulations){
-                System.out.println(s.getPositions() + "" + s.getDirections());
+               System.out.println(s.getPositions() + "" + s.getDirections());
             }
             SimulationEngine simulationEngine1 = new SimulationEngine(manySimulations);
             simulationEngine1.runAsyncInThreadPool();
