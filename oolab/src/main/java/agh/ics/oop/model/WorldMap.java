@@ -1,8 +1,5 @@
 package agh.ics.oop.model;
-
-import agh.ics.oop.model.MoveDirection;
-import agh.ics.oop.model.Vector2d;
-
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -42,9 +39,15 @@ public interface WorldMap extends MoveValidator {
      * @param position The position of the animal.
      * @return animal or null if the position is not occupied.
      */
+
+
     WorldElement objectAt(Vector2d position);
+   Map<Vector2d, WorldElement> getElement();
 
-
+    void addObserver(MapChangeListener observer);
+    void removerObserver(MapChangeListener observer);
+    void mapChanged(String message);
+    void notifyObservers(String message);
     Boundary getCurrentBounds();
 
     UUID getId();
