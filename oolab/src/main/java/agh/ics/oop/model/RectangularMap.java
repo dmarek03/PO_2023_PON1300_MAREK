@@ -2,7 +2,7 @@ package agh.ics.oop.model;
 
 import java.util.UUID;
 
-public class RectangularMap extends AbstractWorldMap implements WorldMap, MoveValidator {
+public class RectangularMap extends AbstractWorldMap{
 
     public RectangularMap(int width, int height, UUID id) {
         super(width, height, id);

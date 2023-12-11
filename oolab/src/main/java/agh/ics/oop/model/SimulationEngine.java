@@ -2,19 +2,18 @@ package agh.ics.oop.model;
 import agh.ics.oop.Simulation;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class SimulationEngine implements Runnable {
     private  final List<Simulation> simulations;
-    private final CountDownLatch latch;
+
 
     public SimulationEngine(List<Simulation> simulations) {
 
         this.simulations = simulations;
-        this.latch = new CountDownLatch(simulations.size());
+
     }
 
     public void runSyn(){
@@ -62,7 +61,7 @@ public class SimulationEngine implements Runnable {
         for (Simulation sim : simulations) {
             executorService.submit(sim);
         }
-       awaitSimulationsEnd(executorService);
+       //awaitSimulationsEnd(executorService);
 
 
     }

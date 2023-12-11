@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.UUID;
 
 
-public class GrassField extends AbstractWorldMap implements WorldMap{
+public class GrassField extends AbstractWorldMap{
 
     private  final int grassNumber;
 
